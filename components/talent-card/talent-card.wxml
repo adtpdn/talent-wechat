@@ -1,0 +1,14 @@
+<view class="talent-card">
+  <view class="talent-info">
+    <text class="name">{{talent.name}}</text>
+    <text>Age: {{talent.age}}</text>
+    <text>Gender: {{talent.gender}}</text>
+    <text>Genre: {{talent.genre}}</text>
+    <text>Location: {{talent.location}}</text>
+  </view>
+  <view class="actions">
+    <button wx:if="{{userRole === 'external'}}" bind:collect="collectTalent" data-id="{{talent._id}}" class="collect-btn">Collect</button>
+    <button wx:if="{{userRole === 'staff'}}" bind:edit="editTalent" data-id="{{talent._id}}" class="edit-btn">Edit</button>
+    <button wx:if="{{userRole === 'external' || userRole === 'staff'}}" bind:share="shareTalent" class="share-btn">Share</button>
+  </view>
+</view>

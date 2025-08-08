@@ -1,0 +1,31 @@
+.talent-card {
+    background-color: #FFFFFF;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    margin: 10rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  .talent-info {
+    margin-bottom: 20rpx;
+  }
+  
+  .name {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #1E3A8A;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .collect-btn, .edit-btn, .share-btn {
+    flex: 1;
+    margin: 0 5rpx;
+    background-color: #10B981;
+    color: #FFFFFF;
+    border-radius: 5rpx;
+    padding: 5rpx;
+  }

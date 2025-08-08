@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="content">
+    <view wx:if="{{userRole === 'talent' || userRole === 'staff'}}">
+      <text class="title">Profile</text>
+      <view>Name: {{profile.name}}</view>
+      <view>Gender: {{profile.gender}}</view>
+      <view>Age: {{profile.age}}</view>
+      <view>Height: {{profile.height}}</view>
+      <view>Weight: {{profile.weight}}</view>
+      <view>Genre: {{profile.genre}}</view>
+      <view>Type of Artist: {{profile.artistType}}</view>
+      <view>Citizenship: {{profile.citizenship}}</view>
+      <view>Ethnicity: {{profile.ethnicity}}</view>
+      <view>Body Type: {{profile.bodyType}}</view>
+      <view>Eye Color: {{profile.eyeColor}}</view>
+      <view>Hair Color: {{profile.hairColor}}</view>
+      <view>Mandarin Level: {{profile.mandarinLevel}}</view>
+      <view>English Level: {{profile.englishLevel}}</view>
+      <view>Other Languages: {{profile.otherLanguages}}</view>
+      <view>Accents: {{profile.accents}}</view>
+      <view>Bust/Waist/Hips: {{profile.bustWaistHips}}</view>
+      <view>Location: {{profile.location}}</view>
+      <button wx:if="{{userRole === 'talent' || userRole === 'staff'}}" bindtap="editProfile" class="edit-button">Edit Profile</button>
+      <button wx:if="{{isShare}}" bindtap="shareProfile" class="share-button">Share Profile</button>
+    </view>
+  </view>
+  <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="profile" />
+</view>

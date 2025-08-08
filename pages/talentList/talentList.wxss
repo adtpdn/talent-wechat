@@ -1,0 +1,30 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20rpx;
+    padding-bottom: 100rpx; /* Space for bottom navbar */
+    overflow-y: auto;
+  }
+  
+  .talent-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300rpx, 1fr));
+    gap: 20rpx;
+  }
+  
+  .talent-card-wrapper {
+    border-radius: 10rpx;
+    overflow: hidden;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  }
+  
+  @media screen and (max-width: 400px) {
+    .talent-list {
+      grid-template-columns: 1fr;
+    }
+  }

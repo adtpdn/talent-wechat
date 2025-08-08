@@ -1,0 +1,15 @@
+<view class="nav-container {{isSmallScreen ? 'mobile' : ''}}">
+  <view class="hamburger" bindtap="toggleMenu" wx:if="{{isSmallScreen}}">
+    <view class="hamburger-line"></view>
+    <view class="hamburger-line"></view>
+    <view class="hamburger-line"></view>
+  </view>
+  <view class="nav-items {{isSmallScreen && !menuOpen ? 'mobile-hidden' : 'mobile-visible'}}">
+    <view class="nav-item {{currentPage === 'index' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/index/index">Home</view>
+    <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'profile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/profile/profile">My Profile</view>
+    <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'editProfile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/editProfile/editProfile">Edit Profile</view>
+    <view wx:if="{{role === 'staff'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList">All Talents</view>
+    <view wx:if="{{role === 'external'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList?mode=collected">Collected Talents</view>
+    <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}">Talent Detail</view>
+  </view>
+</view>

@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="content">
+    <view class="search-section">
+      <input placeholder="Search by name or attributes" bindinput="onSearchInput" class="search-input" />
+      <view class="filters">
+        <picker mode="selector" range="{{genderOptions}}" bindchange="onGenderChange">
+          <view class="filter-item">Gender: {{filters.gender || 'All'}}</view>
+        </picker>
+        <picker mode="multiSelector" range="{{ageRangeOptions}}" bindchange="onAgeRangeChange">
+          <view class="filter-item">Age: {{filters.ageRange || 'All'}}</view>
+        </picker>
+        <picker mode="selector" range="{{locationOptions}}" bindchange="onLocationChange">
+          <view class="filter-item">Location: {{filters.location || 'All'}}</view>
+        </picker>
+      </view>
+      <button bindtap="searchTalents" class="search-button">Search</button>
+    </view>
+    <view class="talent-list">
+      <view wx:for="{{talentList}}" wx:key="_id" class="talent-card-wrapper">
+        <navigator url="/pages/talentDetail/talentDetail?id={{item._id}}">
+          <talent-card talent="{{item}}" userRole="{{userRole}}" bind:collect="collectTalent" bind:share="shareTalent" />
+        </navigator>
+      </view>
+    </view>
+    <view wx:if="{{userRole === 'external'}}">
+      <button bindtap="viewCollectedTalents" class="collected-button">View Collected Talents</button>
+    </view>
+    <button bindtap="resetData" class="reset-button">Reset Data</button>
+  </view>
+  <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="index" />
+</view>

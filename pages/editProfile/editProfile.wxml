@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="content">
+    <text class="title">Edit Profile</text>
+    <view><input placeholder="Name" bindinput="inputName" value="{{profile.name}}" class="input-field" /></view>
+    <picker mode="selector" range="{{genderOptions}}" bindchange="inputGender">
+      <view class="filter-item">Gender: {{profile.gender || 'Select'}}</view>
+    </picker>
+    <input placeholder="Age" type="number" bindinput="inputAge" value="{{profile.age}}" class="input-field" />
+    <input placeholder="Height (cm)" type="number" bindinput="inputHeight" value="{{profile.height}}" class="input-field" />
+    <input placeholder="Weight (kg)" type="number" bindinput="inputWeight" value="{{profile.weight}}" class="input-field" />
+    <input placeholder="Genre" bindinput="inputGenre" value="{{profile.genre}}" class="input-field" />
+    <input placeholder="Type of Artist" bindinput="inputArtistType" value="{{profile.artistType}}" class="input-field" />
+    <input placeholder="Citizenship" bindinput="inputCitizenship" value="{{profile.citizenship}}" class="input-field" />
+    <input placeholder="Ethnicity" bindinput="inputEthnicity" value="{{profile.ethnicity}}" class="input-field" />
+    <input placeholder="Body Type" bindinput="inputBodyType" value="{{profile.bodyType}}" class="input-field" />
+    <input placeholder="Eye Color" bindinput="inputEyeColor" value="{{profile.eyeColor}}" class="input-field" />
+    <input placeholder="Hair Color" bindinput="inputHairColor" value="{{profile.hairColor}}" class="input-field" />
+    <input placeholder="Mandarin Level" bindinput="inputMandarinLevel" value="{{profile.mandarinLevel}}" class="input-field" />
+    <input placeholder="English Level" bindinput="inputEnglishLevel" value="{{profile.englishLevel}}" class="input-field" />
+    <input placeholder="Other Languages" bindinput="inputOtherLanguages" value="{{profile.otherLanguages}}" class="input-field" />
+    <input placeholder="Accents" bindinput="inputAccents" value="{{profile.accents}}" class="input-field" />
+    <input placeholder="Bust/Waist/Hips" bindinput="inputBustWaistHips" value="{{profile.bustWaistHips}}" class="input-field" />
+    <picker mode="selector" range="{{locationOptions}}" bindchange="inputLocation">
+      <view class="filter-item">Location: {{profile.location || 'Select'}}</view>
+    </picker>
+    <button bindtap="saveProfile" class="save-button">Save</button>
+  </view>
+  <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="editProfile" />
+</view>

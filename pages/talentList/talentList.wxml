@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="content">
+    <view wx:if="{{userRole === 'staff' || mode === 'collected'}}">
+      <text class="title">{{mode === 'collected' ? 'Collected Talents' : 'All Talents'}}</text>
+      <view class="talent-list">
+        <view wx:for="{{talentList}}" wx:key="_id" class="talent-card-wrapper">
+          <navigator url="/pages/talentDetail/talentDetail?id={{item._id}}">
+            <talent-card talent="{{item}}" userRole="{{userRole}}" bind:collect="collectTalent" bind:edit="editTalent" bind:share="shareTalent" />
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="talentList" />
+</view>

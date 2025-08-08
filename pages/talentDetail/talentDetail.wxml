@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="content">
+    <text class="title">Talent Profile</text>
+    <view>Name: {{talent.name}}</view>
+    <view>Gender: {{talent.gender}}</view>
+    <view>Age: {{talent.age}}</view>
+    <view>Height: {{talent.height}}</view>
+    <view>Weight: {{talent.weight}}</view>
+    <view>Genre: {{talent.genre}}</view>
+    <view>Type of Artist: {{talent.artistType}}</view>
+    <view>Citizenship: {{talent.citizenship}}</view>
+    <view>Ethnicity: {{talent.ethnicity}}</view>
+    <view>Body Type: {{talent.bodyType}}</view>
+    <view>Eye Color: {{talent.eyeColor}}</view>
+    <view>Hair Color: {{talent.hairColor}}</view>
+    <view>Mandarin Level: {{talent.mandarinLevel}}</view>
+    <view>English Level: {{talent.englishLevel}}</view>
+    <view>Other Languages: {{talent.otherLanguages}}</view>
+    <view>Accents: {{talent.accents}}</view>
+    <view>Bust/Waist/Hips: {{talent.bustWaistHips}}</view>
+    <view>Location: {{talent.location}}</view>
+    <button wx:if="{{userRole === 'external'}}" bindtap="collectTalent" data-id="{{talent._id}}" class="collect-button">Collect</button>
+    <button wx:if="{{userRole === 'staff'}}" bindtap="editTalent" data-id="{{talent._id}}" class="edit-button">Edit</button>
+    <button wx:if="{{isShare}}" bindtap="shareTalent" class="share-button">Share</button>
+  </view>
+  <nav-menu role="{{userRole}}" showTalentDetail="{{true}}" talentDetailId="{{talent._id}}" currentPage="talentDetail" />
+</view>

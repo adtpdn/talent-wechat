@@ -1,0 +1,20 @@
+{
+    "pages": [
+      "pages/index/index",
+      "pages/profile/profile",
+      "pages/editProfile/editProfile",
+      "pages/talentList/talentList",
+      "pages/talentDetail/talentDetail"
+    ],
+    "window": {
+      "backgroundTextStyle": "light",
+      "navigationBarBackgroundColor": "#1E3A8A",
+      "navigationBarTitleText": "Talent App",
+      "navigationBarTextStyle": "white"
+    },
+    "usingComponents": {
+      "nav-menu": "/components/nav-menu/nav-menu",
+      "talent-card": "/components/talent-card/talent-card"
+    },
+    "sitemapLocation": "sitemap.json"
+  }
