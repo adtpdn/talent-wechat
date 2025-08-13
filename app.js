@@ -1,11 +1,12 @@
 App({
-    // Default data embedded as constants
+    // Default data mimicking a WeCom spreadsheet export
     DEFAULT_USERS: [
       { _openid: 'user1', role: 'external' },
       { _openid: 'user2', role: 'talent' },
       { _openid: 'user3', role: 'staff' }
     ],
     DEFAULT_TALENTS: [
+      // Sample talent data (replace with your spreadsheet export)
       {
         _id: 'talent1',
         _openid: 'user2',
@@ -28,6 +29,7 @@ App({
         bustWaistHips: '32-24-34',
         location: 'China'
       },
+      // Add more talents as per your spreadsheet
       {
         _id: 'talent2',
         _openid: 'user1',
@@ -49,72 +51,6 @@ App({
         accents: 'American',
         bustWaistHips: 'N/A',
         location: 'Not China'
-      },
-      {
-        _id: 'talent3',
-        _openid: 'user3',
-        name: 'Chen Wei',
-        gender: 'Male',
-        age: 40,
-        height: 175,
-        weight: 70,
-        genre: 'Acting',
-        artistType: 'Theater',
-        citizenship: 'China',
-        ethnicity: 'Han',
-        bodyType: 'Average',
-        eyeColor: 'Black',
-        hairColor: 'Black',
-        mandarinLevel: 'Native',
-        englishLevel: 'Intermediate',
-        otherLanguages: 'None',
-        accents: 'Shanghai',
-        bustWaistHips: 'N/A',
-        location: 'China'
-      },
-      {
-        _id: 'talent4',
-        _openid: 'user2',
-        name: 'Diana Lee',
-        gender: 'Female',
-        age: 28,
-        height: 170,
-        weight: 60,
-        genre: 'Dance',
-        artistType: 'Contemporary',
-        citizenship: 'Not China',
-        ethnicity: 'Korean',
-        bodyType: 'Slim',
-        eyeColor: 'Brown',
-        hairColor: 'Dark Brown',
-        mandarinLevel: 'Intermediate',
-        englishLevel: 'Fluent',
-        otherLanguages: 'Korean',
-        accents: 'None',
-        bustWaistHips: '34-26-36',
-        location: 'China'
-      },
-      {
-        _id: 'talent5',
-        _openid: 'user1',
-        name: 'Emma Brown',
-        gender: 'Female',
-        age: 22,
-        height: 160,
-        weight: 50,
-        genre: 'Modeling',
-        artistType: 'Fashion',
-        citizenship: 'Not China',
-        ethnicity: 'Mixed',
-        bodyType: 'Petite',
-        eyeColor: 'Green',
-        hairColor: 'Brown',
-        mandarinLevel: 'Basic',
-        englishLevel: 'Native',
-        otherLanguages: 'Spanish',
-        accents: 'British',
-        bustWaistHips: '30-22-32',
-        location: 'Not China'
       }
     ],
     DEFAULT_COLLECTIONS: [
@@ -123,12 +59,10 @@ App({
     ],
   
     onLaunch() {
-      // Initialize or restore data from storage with fallback to defaults
       this.initializeStorage('users', this.DEFAULT_USERS)
       this.initializeStorage('talents', this.DEFAULT_TALENTS)
       this.initializeStorage('collections', this.DEFAULT_COLLECTIONS)
   
-      // Simulate user authentication in guest mode with a mock user ID
       wx.getSystemInfo({
         success: res => {
           const mockOpenId = res.deviceId || 'guest-user-' + Date.now()
@@ -138,13 +72,12 @@ App({
             users.push({ _openid: mockOpenId, role: 'external' })
             this.setStorage('users', users)
           }
-          // Redirect to index page after login
           wx.redirectTo({ url: '/pages/index/index' })
         }
       })
     },
   
-    // Helper methods for storage management
+    // Helper methods
     initializeStorage(key, defaultData) {
       const storedData = wx.getStorageSync(key)
       if (!storedData || !Array.isArray(storedData)) {
@@ -157,6 +90,18 @@ App({
     },
     setStorage(key, data) {
       wx.setStorageSync(key, data)
+    },
+  
+    // Simulate loading from WeCom spreadsheet
+    loadFromWeComSpreadsheet(callback) {
+      // Mock API call (replace with real API if access is granted)
+      wx.showLoading({ title: 'Loading from WeCom...' })
+      setTimeout(() => {
+        const mockSpreadsheetData = this.DEFAULT_TALENTS // Simulate spreadsheet data
+        this.setStorage('talents', mockSpreadsheetData)
+        wx.hideLoading()
+        if (callback) callback(mockSpreadsheetData)
+      }, 1000) // Simulate network delay
     },
   
     globalData: {

@@ -61,12 +61,19 @@ Page({
     collections.push({ talentId, userId: app.globalData.openId, timestamp: new Date() })
     app.setStorage('collections', collections)
     wx.showToast({ title: 'Talent collected' })
-    this.loadTalents() // Refresh talent list
+    this.loadTalents()
   },
   shareTalent() {
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
+    })
+  },
+  // Load data from simulated WeCom spreadsheet
+  loadFromWeCom() {
+    app.loadFromWeComSpreadsheet(data => {
+      this.loadTalents()
+      wx.showToast({ title: 'Data loaded from WeCom' })
     })
   },
   // Manual reset option

@@ -25,6 +25,7 @@
     <view wx:if="{{userRole === 'external'}}">
       <button bindtap="viewCollectedTalents" class="collected-button">View Collected Talents</button>
     </view>
+    <button bindtap="loadFromWeCom" class="wecom-button">Load from WeCom</button>
     <button bindtap="resetData" class="reset-button">Reset Data</button>
   </view>
   <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="index" />
