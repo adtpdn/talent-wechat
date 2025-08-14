@@ -1,31 +1,136 @@
+/* Modern Talent Card Styles */
 .talent-card {
-    background-color: #FFFFFF;
-    border-radius: 10rpx;
-    padding: 20rpx;
-    margin: 10rpx;
-    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-  }
-  
-  .talent-info {
-    margin-bottom: 20rpx;
-  }
-  
-  .name {
-    font-size: 28rpx;
-    font-weight: bold;
-    color: #1E3A8A;
-  }
-  
-  .actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .collect-btn, .edit-btn, .share-btn {
-    flex: 1;
-    margin: 0 5rpx;
-    background-color: #10B981;
-    color: #FFFFFF;
-    border-radius: 5rpx;
-    padding: 5rpx;
-  }
+  background-color: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 20rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid #F1F5F9;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.avatar-placeholder {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6E8EFB, #A777E3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+
+.avatar-initial {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.header-info {
+  flex: 1;
+}
+
+.name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.meta {
+  font-size: 26rpx;
+  color: #64748B;
+}
+
+/* Details Section */
+.details-section {
+  margin-bottom: 32rpx;
+  border-top: 1rpx solid #F1F5F9;
+  padding-top: 24rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.detail-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+  opacity: 0.7;
+}
+
+.detail-label {
+  font-size: 28rpx;
+  color: #64748B;
+  width: 160rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #1E293B;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  border: none;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0.1;
+  border-radius: inherit;
+}
+
+.action-btn text {
+  margin-left: 8rpx;
+}
+
+.btn-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.collect {
+  color: #10B981;
+}
+
+.edit {
+  color: #3B82F6;
+}
+
+.share {
+  color: #8B5CF6;
+}

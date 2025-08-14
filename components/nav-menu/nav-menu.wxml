@@ -24,7 +24,7 @@
     <text>Collected</text>
   </view>
   
-  <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}" data-page="talentDetail">
-    <text>Detail</text>
-  </view>
+  <!-- <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}" data-page="talentDetail">
+    <text></text>
+  </view> -->
 </view>

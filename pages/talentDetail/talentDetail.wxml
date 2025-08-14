@@ -1,27 +1,115 @@
 <view class="container">
-  <view class="content">
-    <text class="title">Talent Profile</text>
-    <view>Name: {{talent.name}}</view>
-    <view>Gender: {{talent.gender}}</view>
-    <view>Age: {{talent.age}}</view>
-    <view>Height: {{talent.height}}</view>
-    <view>Weight: {{talent.weight}}</view>
-    <view>Genre: {{talent.genre}}</view>
-    <view>Type of Artist: {{talent.artistType}}</view>
-    <view>Citizenship: {{talent.citizenship}}</view>
-    <view>Ethnicity: {{talent.ethnicity}}</view>
-    <view>Body Type: {{talent.bodyType}}</view>
-    <view>Eye Color: {{talent.eyeColor}}</view>
-    <view>Hair Color: {{talent.hairColor}}</view>
-    <view>Mandarin Level: {{talent.mandarinLevel}}</view>
-    <view>English Level: {{talent.englishLevel}}</view>
-    <view>Other Languages: {{talent.otherLanguages}}</view>
-    <view>Accents: {{talent.accents}}</view>
-    <view>Bust/Waist/Hips: {{talent.bustWaistHips}}</view>
-    <view>Location: {{talent.location}}</view>
-    <button wx:if="{{userRole === 'external'}}" bindtap="collectTalent" data-id="{{talent._id}}" class="collect-button">Collect</button>
-    <button wx:if="{{userRole === 'staff'}}" bindtap="editTalent" data-id="{{talent._id}}" class="edit-button">Edit</button>
-    <button wx:if="{{isShare}}" bindtap="shareTalent" class="share-button">Share</button>
+  <view class="header">
+    <text class="title">{{talent.name || 'Talent Profile'}}</text>
+    <view class="action-buttons">
+      <button wx:if="{{userRole === 'external'}}" bindtap="collectTalent" data-id="{{talent._id}}" class="button collect-button">
+        <image src="/icons/star.png" class="button-icon"></image>
+        Collect
+      </button>
+      <button wx:if="{{userRole === 'staff'}}" bindtap="editTalent" data-id="{{talent._id}}" class="button edit-button">
+        <image src="/icons/edit.png" class="button-icon"></image>
+        Edit
+      </button>
+      <button wx:if="{{isShare}}" bindtap="shareTalent" class="button share-button">
+        <image src="/icons/share.png" class="button-icon"></image>
+        Share
+      </button>
+    </view>
   </view>
+
+  <view class="profile-content">
+    <view class="profile-section">
+      <view class="section-title">Basic Information</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">Gender</text>
+          <text class="info-value">{{talent.gender || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Age</text>
+          <text class="info-value">{{talent.age || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Height</text>
+          <text class="info-value">{{talent.height || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Weight</text>
+          <text class="info-value">{{talent.weight || '-'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="profile-section">
+      <view class="section-title">Professional Details</view>
+      <view class="info-item">
+        <text class="info-label">Genre</text>
+        <text class="info-value">{{talent.genre || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">Type of Artist</text>
+        <text class="info-value">{{talent.artistType || '-'}}</text>
+      </view>
+    </view>
+
+    <view class="profile-section">
+      <view class="section-title">Physical Attributes</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">Body Type</text>
+          <text class="info-value">{{talent.bodyType || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Eye Color</text>
+          <text class="info-value">{{talent.eyeColor || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Hair Color</text>
+          <text class="info-value">{{talent.hairColor || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">Bust/Waist/Hips</text>
+          <text class="info-value">{{talent.bustWaistHips || '-'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="profile-section">
+      <view class="section-title">Background</view>
+      <view class="info-item">
+        <text class="info-label">Citizenship</text>
+        <text class="info-value">{{talent.citizenship || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">Ethnicity</text>
+        <text class="info-value">{{talent.ethnicity || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">Location</text>
+        <text class="info-value">{{talent.location || '-'}}</text>
+      </view>
+    </view>
+
+    <view class="profile-section">
+      <view class="section-title">Language Skills</view>
+      <view class="info-item">
+        <text class="info-label">Mandarin Level</text>
+        <text class="info-value">{{talent.mandarinLevel || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">English Level</text>
+        <text class="info-value">{{talent.englishLevel || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">Other Languages</text>
+        <text class="info-value">{{talent.otherLanguages || '-'}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">Accents</text>
+        <text class="info-value">{{talent.accents || '-'}}</text>
+      </view>
+    </view>
+  </view>
+
   <nav-menu role="{{userRole}}" showTalentDetail="{{true}}" talentDetailId="{{talent._id}}" currentPage="talentDetail" />
 </view>
