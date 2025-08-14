@@ -1,15 +1,30 @@
-<view class="nav-container {{isSmallScreen ? 'mobile' : ''}}">
-  <view class="hamburger" bindtap="toggleMenu" wx:if="{{isSmallScreen}}">
-    <view class="hamburger-line"></view>
-    <view class="hamburger-line"></view>
-    <view class="hamburger-line"></view>
+<view class="navbar {{isSmallScreen ? 'mobile' : ''}}">
+  <!-- Left Items -->
+  <view class="nav-item {{currentPage === 'index' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/index/index" data-page="index">
+    <text>Home</text>
   </view>
-  <view class="nav-items {{isSmallScreen && !menuOpen ? 'mobile-hidden' : 'mobile-visible'}}">
-    <view class="nav-item {{currentPage === 'index' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/index/index">Home</view>
-    <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'profile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/profile/profile">My Profile</view>
-    <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'editProfile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/editProfile/editProfile">Edit Profile</view>
-    <view wx:if="{{role === 'staff'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList">All Talents</view>
-    <view wx:if="{{role === 'external'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList?mode=collected">Collected Talents</view>
-    <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}">Talent Detail</view>
+  
+  <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'profile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/profile/profile" data-page="profile">
+    <text>Profile</text>
+  </view>
+
+  <!-- Center Add Button -->
+  <view class="add-button-container">
+    <view class="add-button" bindtap="onAddClick">
+      <text class="add-icon">+</text>
+    </view>
+  </view>
+
+  <!-- Right Items -->
+  <view wx:if="{{role === 'staff'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList" data-page="talentList">
+    <text>Talents</text>
+  </view>
+  
+  <view wx:if="{{role === 'external'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList?mode=collected" data-page="talentList">
+    <text>Collected</text>
+  </view>
+  
+  <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}" data-page="talentDetail">
+    <text>Detail</text>
   </view>
 </view>

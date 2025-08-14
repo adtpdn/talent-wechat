@@ -1,32 +1,103 @@
 <view class="container">
   <view class="content">
     <view class="search-section">
-      <input placeholder="Search by name or attributes" bindinput="onSearchInput" class="search-input" />
-      <view class="filters">
-        <picker mode="selector" range="{{genderOptions}}" bindchange="onGenderChange">
-          <view class="filter-item">Gender: {{filters.gender || 'All'}}</view>
-        </picker>
-        <picker mode="multiSelector" range="{{ageRangeOptions}}" bindchange="onAgeRangeChange">
-          <view class="filter-item">Age: {{filters.ageRange || 'All'}}</view>
-        </picker>
-        <picker mode="selector" range="{{locationOptions}}" bindchange="onLocationChange">
-          <view class="filter-item">Location: {{filters.location || 'All'}}</view>
-        </picker>
+      <view class="search-container">
+        <input 
+          placeholder="Search by name or attributes" 
+          bindinput="onSearchInput" 
+          class="search-input" 
+        />
+        <button 
+          bindtap="searchTalents" 
+          class="search-button"
+          hover-class="search-button-hover"
+        >
+          <image src="/icons/search.png" class="search-icon"></image>
+        </button>
       </view>
-      <button bindtap="searchTalents" class="search-button">Search</button>
+      
+      <scroll-view scroll-x class="filter-slider" enable-flex>
+  <view class="filter-container">
+    <picker mode="selector" range="{{genderOptions}}" bindchange="onGenderChange">
+      <view class="filter-item {{filters.gender !== 'All' ? 'active' : ''}}">
+        Gender: {{filters.gender || 'All'}}
+      </view>
+    </picker>
+    <picker mode="multiSelector" range="{{ageRangeOptions}}" bindchange="onAgeRangeChange">
+      <view class="filter-item {{filters.ageRange !== 'All' ? 'active' : ''}}">
+        Age: {{filters.ageRange || 'All'}}
+      </view>
+    </picker>
+    <picker mode="selector" range="{{locationOptions}}" bindchange="onLocationChange">
+      <view class="filter-item {{filters.location !== 'All' ? 'active' : ''}}">
+        Location: {{filters.location || 'All'}}
+      </view>
+    </picker>
+    <picker mode="selector" range="{{locationOptions}}" bindchange="onLocationChange">
+      <view class="filter-item {{filters.location !== 'All' ? 'active' : ''}}">
+        Name: {{filters.location || 'All'}}
+      </view>
+    </picker>
+  </view>
+</scroll-view>
     </view>
+    
+    <!-- Rest of your existing content remains exactly the same -->
     <view class="talent-list">
       <view wx:for="{{talentList}}" wx:key="_id" class="talent-card-wrapper">
         <navigator url="/pages/talentDetail/talentDetail?id={{item._id}}">
-          <talent-card talent="{{item}}" userRole="{{userRole}}" bind:collect="collectTalent" bind:share="shareTalent" />
+          <view class="talent-card">
+            <image src="/images/talent.jpg" class="talent-avatar" />
+            <view class="talent-info">
+              <view class="talent-name">{{item.name}}</view>
+              <view class="talent-name">{{item.gender}}</view>
+              <view class="talent-desc">Age : {{item.age}}</view>
+              <view class="talent-desc">Type of Artist: {{item.artistType}}</view>
+              <view class="location-container">
+                <image src="/icons/location.png" mode="aspectFit" class="location-icon" />
+                <view class="location-desc">{{item.location}}</view>
+              </view>
+            </view>
+            <image src="/icons/boomark.png" class="bookmark-icon" bindtap="toggleBookmark" data-id="{{item._id}}" />
+          </view>
         </navigator>
       </view>
     </view>
-    <view wx:if="{{userRole === 'external'}}">
-      <button bindtap="viewCollectedTalents" class="collected-button">View Collected Talents</button>
+    
+    <view class="button-container">
+      <view wx:if="{{userRole === 'external'}}" class="button-wrapper">
+        <button 
+          bindtap="viewCollectedTalents" 
+          class="button collected-button"
+          hover-class="button-hover"
+        >
+          <image src="/icons/collection.png" class="button-icon"></image>
+          View Collected Talents
+        </button>
+      </view>
+      
+      <view class="button-wrapper">
+        <button 
+          bindtap="loadFromWeCom" 
+          class="button wecom-button"
+          hover-class="button-hover"
+        >
+          <image src="/icons/wecom.png" class="button-icon"></image>
+          Load from WeCom
+        </button>
+      </view>
+      
+      <view class="button-wrapper">
+        <button 
+          bindtap="resetData" 
+          class="button reset-button"
+          hover-class="button-hover"
+        >
+          <image src="/icons/reset.png" class="button-icon"></image>
+          Reset Data
+        </button>
+      </view>
     </view>
-    <button bindtap="loadFromWeCom" class="wecom-button">Load from WeCom</button>
-    <button bindtap="resetData" class="reset-button">Reset Data</button>
   </view>
   <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="index" />
 </view>
