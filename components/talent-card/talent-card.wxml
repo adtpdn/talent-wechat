@@ -1,14 +1,45 @@
 <view class="talent-card">
-  <view class="talent-info">
-    <text class="name">{{talent.name}}</text>
-    <text>Age: {{talent.age}}</text>
-    <text>Gender: {{talent.gender}}</text>
-    <text>Genre: {{talent.genre}}</text>
-    <text>Location: {{talent.location}}</text>
+  <!-- Profile header with avatar placeholder -->
+  <view class="profile-header">
+    <view class="avatar-placeholder">
+      <text class="avatar-initial">{{talent.name ? talent.name.charAt(0) : 'T'}}</text>
+    </view>
+    <view class="header-info">
+      <text class="name">{{talent.name || 'Talent Name'}}</text>
+      <text class="meta">{{talent.age || '-'}} • {{talent.gender || '-'}} • {{talent.location || '-'}}</text>
+    </view>
   </view>
-  <view class="actions">
-    <button wx:if="{{userRole === 'external'}}" bind:collect="collectTalent" data-id="{{talent._id}}" class="collect-btn">Collect</button>
-    <button wx:if="{{userRole === 'staff'}}" bind:edit="editTalent" data-id="{{talent._id}}" class="edit-btn">Edit</button>
-    <button wx:if="{{userRole === 'external' || userRole === 'staff'}}" bind:share="shareTalent" class="share-btn">Share</button>
+
+  <!-- Details section -->
+  <view class="details-section">
+    <view class="detail-item">
+      <image src="/icons/edit.png" class="detail-icon"></image>
+      <text class="detail-label">Genre</text>
+      <text class="detail-value">{{talent.genre || 'Not specified'}}</text>
+    </view>
+    
+    <view class="detail-item">
+      <image src="/icons/star.png" class="detail-icon"></image>
+      <text class="detail-label">Artist Type</text>
+      <text class="detail-value">{{talent.artistType || 'Not specified'}}</text>
+    </view>
+  </view>
+
+  <!-- Action buttons -->
+  <view class="action-buttons">
+    <button wx:if="{{userRole === 'external'}}" bindtap="collectTalent" data-id="{{talent._id}}" class="action-btn collect">
+      <image src="/icons/boomark.png" class="btn-icon"></image>
+      <text>Collect</text>
+    </button>
+    
+    <button wx:if="{{userRole === 'staff'}}" bindtap="editTalent" data-id="{{talent._id}}" class="action-btn edit">
+      <image src="/icons/edit.png" class="btn-icon"></image>
+      <text>Edit</text>
+    </button>
+    
+    <button wx:if="{{userRole === 'external' || userRole === 'staff'}}" bindtap="shareTalent" class="action-btn share">
+      <image src="/icons/share.png" class="btn-icon"></image>
+      <text>Share</text>
+    </button>
   </view>
 </view>
