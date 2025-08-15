@@ -1,0 +1,24 @@
+
+<view class="profile-container">
+  <view class="profile-header">
+    <image src="{{userInfo.avatarUrl || '/images/talent.jpg'}}" class="profile-avatar" />
+    <view class="profile-info">
+      <text class="profile-name">{{userInfo.nickName || 'Anonymous'}}</text>
+      <text class="profile-role">Role: {{userRole}}</text>
+      <text class="profile-id">OpenID: {{openId}}</text>
+      <text class="profile-bio">Bio: Welcome to your profile!</text> <!-- Placeholder bio -->
+    </view>
+  </view>
+  <view class="profile-settings">
+    <view class="settings-item" bindtap="toggleResetPassword">
+      <text>Reset Password</text>
+      <image src="/icons/arrow-right.png" class="arrow-icon" />
+    </view>
+    <view wx:if="{{showResetForm}}" class="reset-form">
+      <input type="password" placeholder="Old Password" class="input-field" bindinput="onOldPasswordInput" value="{{oldPassword}}" />
+      <input type="password" placeholder="New Password" class="input-field" bindinput="onNewPasswordInput" value="{{newPassword}}" />
+      <input type="password" placeholder="Confirm New Password" class="input-field" bindinput="onConfirmPasswordInput" value="{{confirmPassword}}" />
+      <view class="submit-button" bindtap="resetPassword">Submit</view>
+    </view>
+  </view>
+</view>

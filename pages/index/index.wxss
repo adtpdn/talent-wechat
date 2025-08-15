@@ -1,4 +1,5 @@
-/* Original container styles remain unchanged */
+
+/* Container styles */
 .container {
   height: 100vh;
   display: flex;
@@ -8,11 +9,11 @@
 .content {
   flex: 1;
   padding: 20rpx;
-  padding-bottom: 100rpx;
+  padding-bottom: 140rpx; /* Adjusted for nav-menu and message button */
   overflow-y: auto;
 }
 
-/* Updated search section styles */
+/* Search section styles */
 .search-section {
   background-color: #FFFFFF;
   padding: 24rpx;
@@ -24,13 +25,14 @@
 .search-container {
   position: relative;
   display: flex;
+  align-items: center;
   margin-bottom: 20rpx;
 }
 
 .search-input {
   flex: 1;
   padding: 20rpx 24rpx;
-  padding-right: 80rpx;
+  padding-right: 160rpx; /* Increased to accommodate search and profile buttons */
   border: 1rpx solid #E5E7EB;
   border-radius: 12rpx;
   font-size: 28rpx;
@@ -45,7 +47,7 @@
 
 .search-button {
   position: absolute;
-  right: 8rpx;
+  right: 80rpx; /* Adjusted to place profile button to the right */
   top: 50%;
   transform: translateY(-50%);
   width: 64rpx;
@@ -69,8 +71,33 @@
   filter: brightness(0) invert(1);
 }
 
-/* Updated filter slider styles */
-/* Filter Slider Container */
+.profile-button {
+  position: absolute;
+  right: 8rpx; /* Positioned to the right of search-button */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64rpx;
+  height: 64rpx;
+  background-color: #1E3A8A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+}
+
+.profile-button-hover {
+  opacity: 0.9;
+}
+
+.profile-icon {
+  width: 32rpx;
+  height: 32rpx;
+  filter: brightness(0) invert(1);
+}
+
+/* Filter slider styles */
 .filter-slider {
   width: 100%;
   padding: 12rpx 16rpx;
@@ -79,18 +106,15 @@
   scrollbar-width: none;
 }
 
-/* Hide scrollbar for Webkit browsers */
 .filter-slider::-webkit-scrollbar {
   display: none;
 }
 
-/* Filter Container */
 .filter-container {
   display: flex;
   flex-direction: row;
 }
 
-/* Filter Items */
 .filter-item {
   display: inline-flex;
   align-items: center;
@@ -105,7 +129,6 @@
   border: 1rpx solid transparent;
 }
 
-/* Active state */
 .filter-item.active {
   background-color: #1E3A8A;
   color: #FFFFFF;
@@ -114,13 +137,12 @@
   box-shadow: 0 2rpx 6rpx rgba(30, 58, 138, 0.3);
 }
 
-/* Tap feedback for touch devices */
 .filter-item:not(.active):active {
   background-color: #E5E7EB;
   transform: scale(0.98);
 }
 
-/* Original talent card styles remain unchanged */
+/* Talent card styles */
 .talent-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(1fr));
@@ -200,7 +222,7 @@
   height: 60rpx;
 }
 
-/* Original button styles remain unchanged */
+/* Button styles */
 .button-container {
   padding: 20rpx;
   display: flex;
@@ -252,7 +274,7 @@
   background-color: #FF4444;
 }
 
-/* Original responsive styles remain unchanged */
+/* Responsive styles */
 @media (max-width: 480rpx) {
   .button {
     padding: 20rpx;
@@ -268,6 +290,23 @@
     padding: 12rpx 20rpx;
     font-size: 24rpx;
     margin-right: 12rpx;
+  }
+
+  .search-input {
+    padding: 16rpx 20rpx;
+    padding-right: 140rpx; /* Adjusted for both buttons */
+    font-size: 24rpx;
+    height: 56rpx;
+  }
+
+  .search-button, .profile-button {
+    width: 56rpx;
+    height: 56rpx;
+  }
+
+  .search-icon, .profile-icon {
+    width: 28rpx;
+    height: 28rpx;
   }
 }
 

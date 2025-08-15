@@ -36,7 +36,7 @@
 }
 
 .community-tab {
-  padding: 10rpx 24rpx;
+  padding: 10rpx 2rpx;
   margin: 0 8rpx;
   border-radius: 40rpx;
   font-size: 24rpx;
@@ -75,7 +75,7 @@
   flex: 1;
   background-color: #f1f3f5;
   border-radius: 40rpx;
-  padding: 16rpx 20rpx;
+  padding: 5rpx 20rpx;
   font-size: 26rpx;
   height: 64rpx;
 }
@@ -350,4 +350,92 @@
   font-size: 40rpx;
   color: #fff;
   font-weight: bold;
+}
+
+.inbox-list {
+  padding: 0 16rpx;
+}
+
+.conversation-card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 688rpx;
+  margin-top: 4%;
+}
+
+.conversation-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  background-color: #e9ecef;
+}
+
+.conversation-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-username {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4rpx;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-preview {
+  font-size: 24rpx;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400rpx;
+}
+
+.conversation-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-left: 12rpx;
+}
+
+.unread-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-50%);
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 3rpx 3rpx;
+  border-radius: 100%;
+  min-width: 32rpx;
+  text-align: center;
+}
+
+.empty-inbox {
+  text-align: center;
+  padding: 80rpx 0;
+}
+
+.empty-inbox-icon {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 16rpx;
+  opacity: 0.6;
+}
+
+.empty-inbox-text {
+  font-size: 26rpx;
+  color: #999;
 }
