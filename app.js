@@ -1,9 +1,9 @@
 
 App({
   DEFAULT_USERS: [
-    { _openid: 'user1', role: 'external' },
-    { _openid: 'user2', role: 'talent' },
-    { _openid: 'user3', role: 'staff' }
+    { _openid: 'user1', role: 'external', password: 'password123' },
+    { _openid: 'user2', role: 'talent', password: 'password123' },
+    { _openid: 'user3', role: 'staff', password: 'password123' }
   ],
   DEFAULT_TALENTS: [
     {

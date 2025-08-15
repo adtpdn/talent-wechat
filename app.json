@@ -7,7 +7,8 @@
     "pages/talentDetail/talentDetail",
     "pages/discover/discover",
     "pages/community/community",
-    "components/massage/massage"
+    "components/massage/massage",
+    "pages/myProfile/myProfile"
   ],
   "window": {
     "backgroundTextStyle": "light",

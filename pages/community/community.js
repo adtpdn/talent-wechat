@@ -1,6 +1,7 @@
 Page({
   data: {
     posts: [],
+    conversations: [], // Added for inbox
     activeTab: 'discussions',
     newPostContent: '',
     userInfo: null,
@@ -13,13 +14,15 @@ Page({
 
   onLoad() {
     this.initializePosts();
-    this.loadPosts();
+    this.initializeConversations();
+    this.loadContent();
     this.getUserInfo();
     this.setUserRole();
   },
 
   onShow() {
     this.checkNewPosts();
+    this.checkNewMessages();
   },
 
   setUserRole() {
@@ -46,28 +49,19 @@ Page({
           comments: [
             {
               id: Date.now() - 3000,
-              author: {
-                name: 'Bob Johnson',
-                avatar: 'https://randomuser.me/api/portraits/men/2.jpg'
-              },
+              author: { name: 'Bob Johnson', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
               text: 'This is a great start! Excited to see more posts like this.',
               time: '1 hour ago'
             },
             {
               id: Date.now() - 2500,
-              author: {
-                name: 'Carol White',
-                avatar: 'https://randomuser.me/api/portraits/women/3.jpg'
-              },
+              author: { name: 'Carol White', avatar: 'https://randomuser.me/api/portraits/women/3.jpg' },
               text: 'Love the community vibe here! Any plans for events?',
               time: '45 minutes ago'
             },
             {
               id: Date.now() - 2000,
-              author: {
-                name: 'David Brown',
-                avatar: 'https://randomuser.me/api/portraits/men/4.jpg'
-              },
+              author: { name: 'David Brown', avatar: 'https://randomuser.me/api/portraits/men/4.jpg' },
               text: 'Thanks for sharing! I have some ideas to contribute.',
               time: '30 minutes ago'
             }
@@ -91,10 +85,7 @@ Page({
           comments: [
             {
               id: Date.now() - 1500,
-              author: {
-                name: 'Frank Wilson',
-                avatar: 'https://randomuser.me/api/portraits/men/6.jpg'
-              },
+              author: { name: 'Frank Wilson', avatar: 'https://randomuser.me/api/portraits/men/6.jpg' },
               text: 'Count me in! What time are we meeting?',
               time: '20 minutes ago'
             }
@@ -111,6 +102,45 @@ Page({
     }
   },
 
+  initializeConversations() {
+    const storedConversations = wx.getStorageSync('conversations') || [];
+    if (storedConversations.length === 0) {
+      const defaultConversations = [
+        {
+          id: Date.now() - 1000,
+          recipient: {
+            name: 'Alice Smith',
+            avatar: 'https://randomuser.me/api/portraits/women/1.jpg'
+          },
+          lastMessage: 'Hey, looking forward to the meetup!',
+          time: '1 hour ago',
+          unreadCount: 2,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: Date.now() - 500,
+          recipient: {
+            name: 'Bob Johnson',
+            avatar: 'https://randomuser.me/api/portraits/men/2.jpg'
+          },
+          lastMessage: 'Can we discuss the group project?',
+          time: '30 minutes ago',
+          unreadCount: 0,
+          createdAt: new Date().toISOString()
+        }
+      ];
+      wx.setStorageSync('conversations', defaultConversations);
+    }
+  },
+
+  loadContent() {
+    if (this.data.activeTab === 'inbox') {
+      this.loadConversations();
+    } else {
+      this.loadPosts();
+    }
+  },
+
   loadPosts() {
     if (this.data.isLoading || !this.data.hasMore) return;
 
@@ -124,7 +154,7 @@ Page({
           liked: post.liked || false,
           showCommentInput: post.showCommentInput || false,
           newCommentText: post.newCommentText || '',
-          comments: Array.isArray(post.comments) ? post.comments : [] // Ensure comments is an array
+          comments: Array.isArray(post.comments) ? post.comments : []
         }));
         this.setData({
           posts: [...this.data.posts, ...updatedPosts],
@@ -144,7 +174,7 @@ Page({
     const allPosts = wx.getStorageSync('communityPosts') || [];
     let filtered = allPosts.map(post => ({
       ...post,
-      comments: Array.isArray(post.comments) ? post.comments : [] // Ensure comments is an array
+      comments: Array.isArray(post.comments) ? post.comments : []
     }));
 
     if (tab === 'events') {
@@ -154,6 +184,33 @@ Page({
     }
 
     return filtered.slice((page - 1) * 10, page * 10);
+  },
+
+  loadConversations() {
+    if (this.data.isLoading || !this.data.hasMore) return;
+
+    this.setData({ isLoading: true });
+
+    setTimeout(() => {
+      try {
+        const newConversations = this.mockFetchConversations(this.data.page);
+        this.setData({
+          conversations: [...this.data.conversations, ...newConversations],
+          page: this.data.page + 1,
+          hasMore: newConversations.length >= 10,
+          isLoading: false
+        });
+      } catch (error) {
+        console.error('Error loading conversations:', error);
+        this.setData({ isLoading: false });
+        wx.showToast({ title: 'Failed to load conversations', icon: 'none' });
+      }
+    }, 800);
+  },
+
+  mockFetchConversations(page) {
+    const allConversations = wx.getStorageSync('conversations') || [];
+    return allConversations.slice((page - 1) * 10, page * 10);
   },
 
   getUserInfo() {
@@ -173,11 +230,12 @@ Page({
 
     this.setData({
       activeTab: tab,
-      posts: [],
+      posts: tab !== 'inbox' ? [] : this.data.posts,
+      conversations: tab === 'inbox' ? [] : this.data.conversations,
       page: 1,
       hasMore: true
     });
-    this.loadPosts();
+    this.loadContent();
   },
 
   onPostInput(e) {
@@ -200,7 +258,7 @@ Page({
           content: this.data.newPostContent,
           time: 'Just now',
           likes: 0,
-          comments: [], // Initialize as empty array
+          comments: [],
           liked: false,
           showCommentInput: false,
           newCommentText: '',
@@ -300,7 +358,7 @@ Page({
         };
         return {
           ...post,
-          comments: Array.isArray(post.comments) ? [...post.comments, newComment] : [newComment], // Fallback to new array
+          comments: Array.isArray(post.comments) ? [...post.comments, newComment] : [newComment],
           newCommentText: '',
           showCommentInput: true
         };
@@ -325,7 +383,7 @@ Page({
           };
           return {
             ...p,
-            comments: Array.isArray(p.comments) ? [...p.comments, newComment] : [newComment] // Fallback to new array
+            comments: Array.isArray(p.comments) ? [...p.comments, newComment] : [newComment]
           };
         }
         return p;
@@ -343,17 +401,18 @@ Page({
   },
 
   onReachBottom() {
-    this.loadPosts();
+    this.loadContent();
   },
 
   onPullDownRefresh() {
     wx.stopPullDownRefresh();
     this.setData({
-      posts: [],
+      posts: this.data.activeTab !== 'inbox' ? [] : this.data.posts,
+      conversations: this.data.activeTab === 'inbox' ? [] : this.data.conversations,
       page: 1,
       hasMore: true
     });
-    this.loadPosts();
+    this.loadContent();
   },
 
   checkNewPosts() {
@@ -378,10 +437,39 @@ Page({
     return posts.filter(p => new Date(p.createdAt) > new Date(since)).length;
   },
 
+  checkNewMessages() {
+    try {
+      const lastVisit = wx.getStorageSync('lastInboxVisit') || 0;
+      const newCount = this.getNewMessagesCount(lastVisit);
+
+      if (newCount > 0) {
+        wx.showToast({
+          title: `${newCount} new messages`,
+          icon: 'none'
+        });
+      }
+      wx.setStorageSync('lastInboxVisit', Date.now());
+    } catch (error) {
+      console.error('Error checking new messages:', error);
+    }
+  },
+
+  getNewMessagesCount(since) {
+    const conversations = wx.getStorageSync('conversations') || [];
+    return conversations.filter(c => new Date(c.createdAt) > new Date(since)).length;
+  },
+
   navigateToPostDetail(e) {
     const postId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: `/pages/community/postDetail?id=${postId}`
+    });
+  },
+
+  navigateToChat(e) {
+    const conversationId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `/pages/community/chat?id=${conversationId}`
     });
   }
 });

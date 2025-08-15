@@ -14,6 +14,13 @@
         >
           <image src="/icons/search.png" class="search-icon"></image>
         </button>
+        <button 
+          bindtap="navigateToProfile" 
+          class="profile-button"
+          hover-class="profile-button-hover"
+        >
+          <image src="/icons/profile.png" class="profile-icon"></image>
+        </button>
       </view>
       
       <scroll-view scroll-x class="filter-slider" enable-flex>

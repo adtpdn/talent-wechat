@@ -5,15 +5,18 @@
       <view class="community-tab {{activeTab === 'discussions' ? 'active' : ''}}" bindtap="onTabChange" data-tab="discussions">Discussions</view>
       <view class="community-tab {{activeTab === 'events' ? 'active' : ''}}" bindtap="onTabChange" data-tab="events">Events</view>
       <view class="community-tab {{activeTab === 'groups' ? 'active' : ''}}" bindtap="onTabChange" data-tab="groups">Groups</view>
+      <view class="community-tab {{activeTab === 'inbox' ? 'active' : ''}}" bindtap="onTabChange" data-tab="inbox">Inbox</view>
     </view>
   </view>
 
-  <view class="create-post-container">
+  <!-- Create Post Container (shown for Discussions, Events, Groups) -->
+  <view class="create-post-container" wx:if="{{activeTab !== 'inbox'}}">
     <image src="{{userInfo && userInfo.avatarUrl ? userInfo.avatarUrl : '/images/talent.jpg'}}" class="user-avatar" />
     <input placeholder="Start a discussion..." class="post-input" value="{{newPostContent}}" bindinput="onPostInput" bindconfirm="createPost" confirm-type="send" />
   </view>
 
-  <scroll-view scroll-y class="post-list">
+  <!-- Post List for Discussions, Events, Groups -->
+  <scroll-view scroll-y class="post-list" wx:if="{{activeTab !== 'inbox'}}">
     <block wx:if="{{posts.length > 0}}" wx:for="{{posts}}" wx:key="id">
       <view class="post-card" bindtap="navigateToPostDetail" data-id="{{item.id}}">
         <view class="post-header">
@@ -55,11 +58,31 @@
       </view>
     </block>
     <view wx:if="{{posts.length === 0 && !isLoading}}" class="empty-community">
-      <image src="/images/empty.png" class="empty-community-icon" />
+      <image src="/icons/empty.png" class="empty-community-icon" />
       <text class="empty-community-text">No posts yet. Start a discussion!</text>
     </view>
     <view wx:if="{{isLoading}}" class="loading-more">Loading...</view>
     <view wx:if="{{isPosting}}" class="posting-indicator">Posting...</view>
+  </scroll-view>
+
+  <!-- Inbox Section -->
+  <scroll-view scroll-y class="inbox-list" wx:if="{{activeTab === 'inbox'}}">
+    <block wx:if="{{conversations.length > 0}}" wx:for="{{conversations}}" wx:key="id">
+      <view class="conversation-card" bindtap="navigateToChat" data-id="{{item.id}}">
+        <image src="{{item.recipient.avatar || '/images/talent.jpg'}}" class="conversation-avatar" />
+        <view class="conversation-info">
+          <text class="conversation-username">{{item.recipient.name}}</text>
+          <text class="conversation-preview">{{item.lastMessage}}</text>
+        </view>
+        <text class="conversation-time">{{item.time}}</text>
+        <view wx:if="{{item.unreadCount > 0}}" class="unread-badge">{{item.unreadCount}}</view>
+      </view>
+    </block>
+    <view wx:if="{{conversations.length === 0 && !isLoading}}" class="empty-inbox">
+      <image src="/icons/empty.png" class="empty-inbox-icon" />
+      <text class="empty-inbox-text">No messages yet. Start a conversation!</text>
+    </view>
+    <view wx:if="{{isLoading}}" class="loading-more">Loading...</view>
   </scroll-view>
 </view>
 <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="community" />
