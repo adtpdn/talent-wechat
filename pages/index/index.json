@@ -1,6 +1,7 @@
 {
     "usingComponents": {
       "nav-menu": "/components/nav-menu/nav-menu",
-      "talent-card": "/components/talent-card/talent-card"
+      "talent-card": "/components/talent-card/talent-card",
+      "massage": "/components/massage/massage"
     }
   }

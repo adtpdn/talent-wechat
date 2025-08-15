@@ -3,6 +3,10 @@
   <view class="nav-item {{currentPage === 'index' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/index/index" data-page="index">
     <text>Home</text>
   </view>
+
+  <view class="nav-item {{currentPage === 'discover' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/discover/discover" data-page="discover">
+    <text>Discover</text>
+  </view>
   
   <view wx:if="{{role === 'talent' || role === 'staff'}}" class="nav-item {{currentPage === 'profile' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/profile/profile" data-page="profile">
     <text>Profile</text>
@@ -16,6 +20,10 @@
   </view>
 
   <!-- Right Items -->
+  <view class="nav-item {{currentPage === 'community' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/community/community" data-page="community">
+    <text>Community</text>
+  </view>
+
   <view wx:if="{{role === 'staff'}}" class="nav-item {{currentPage === 'talentList' ? 'active' : ''}}" bindtap="navigateTo" data-url="/pages/talentList/talentList" data-page="talentList">
     <text>Talents</text>
   </view>
@@ -24,7 +32,8 @@
     <text>Collected</text>
   </view>
   
+  
   <!-- <view wx:if="{{showTalentDetail}}" class="nav-item {{currentPage === 'talentDetail' ? 'active' : ''}}" bindtap="navigateTo" data-url="{{talentDetailUrl}}" data-page="talentDetail">
-    <text></text>
+    <text>Detail</text>
   </view> -->
 </view>

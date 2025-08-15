@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #1E3A8A;
+  background: linear-gradient(135deg, #1E3A8A, #3B82F6);
   padding: 10rpx 0;
   box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.2);
   z-index: 1000;
@@ -53,8 +53,8 @@
 
 .add-button {
   background-color: #10B981;
-  width: 80rpx;
-  height: 80rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
   display: flex;
   align-items: center;

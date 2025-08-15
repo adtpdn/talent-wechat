@@ -41,13 +41,12 @@
   </view>
 </scroll-view>
     </view>
-    
-    <!-- Rest of your existing content remains exactly the same -->
+  
     <view class="talent-list">
       <view wx:for="{{talentList}}" wx:key="_id" class="talent-card-wrapper">
         <navigator url="/pages/talentDetail/talentDetail?id={{item._id}}">
           <view class="talent-card">
-            <image src="/images/talent.jpg" class="talent-avatar" />
+            <image src="{{item.avatar}}" class="talent-avatar" />
             <view class="talent-info">
               <view class="talent-name">{{item.name}}</view>
               <view class="talent-name">{{item.gender}}</view>
@@ -99,5 +98,6 @@
       </view>
     </view>
   </view>
+  <massage />
   <nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="index" />
 </view>

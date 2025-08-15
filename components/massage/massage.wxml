@@ -1,0 +1,54 @@
+
+<view class="message-container">
+  <view class="message-button" bindtap="togglePopup">
+    <image src="/icons/message.png" class="message-icon" />
+  </view>
+  <view wx:if="{{showPopup}}" class="popup-overlay">
+    <view class="popup-content">
+      <view class="popup-header">
+        <view wx:if="{{selectedTalent}}" class="back-button" bindtap="backToSearch">←</view>
+        <text class="popup-title">{{selectedTalent ? 'Message ' + selectedTalent.name : 'Message a Talent'}}</text>
+        <view class="close-button" bindtap="togglePopup">×</view>
+      </view>
+      <view wx:if="{{!selectedTalent}}">
+        <view class="search-container">
+          <input
+            placeholder="Search for a talent..."
+            class="search-input"
+            value="{{searchQuery}}"
+            bindinput="onSearchInput"
+          />
+        </view>
+        <scroll-view scroll-y class="talent-list">
+          <block wx:if="{{filteredTalents.length > 0}}" wx:for="{{filteredTalents}}" wx:key="id">
+            <view class="talent-item" bindtap="selectTalent" data-id="{{item.id}}">
+              <image src="{{item.avatar || '/images/talent.jpg'}}" class="talent-avatar" />
+              <view class="talent-info">
+                <text class="talent-name">{{item.name}}</text>
+                <text class="talent-role">{{item.role}}</text>
+              </view>
+            </view>
+          </block>
+          <view wx:if="{{filteredTalents.length === 0 && searchQuery}}" class="no-results">
+            <text>No talents found</text>
+          </view>
+        </scroll-view>
+      </view>
+      <view wx:if="{{selectedTalent}}" class="message-section">
+        <view class="selected-talent">
+          <image src="{{selectedTalent.avatar || '/images/talent.jpg'}}" class="talent-avatar" />
+          <text class="talent-name">{{selectedTalent.name}}</text>
+        </view>
+        <view class="message-input-container">
+          <input
+            placeholder="Type your message..."
+            class="message-input"
+            value="{{messageText}}"
+            bindinput="onMessageInput"
+          />
+          <view class="send-button" bindtap="sendMessage">Send</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
