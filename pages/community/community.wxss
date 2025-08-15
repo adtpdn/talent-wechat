@@ -234,7 +234,7 @@
   flex: 1;
   background-color: #fff;
   border-radius: 40rpx;
-  padding: 12rpx 16rpx;
+  padding: 4rpx 16rpx;
   font-size: 24rpx;
   height: 48rpx;
   border: 1rpx solid #e9ecef;
@@ -261,8 +261,12 @@
 }
 
 .empty-community {
-  text-align: center;
-  padding: 80rpx 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 80rpx 0;
 }
 
 .empty-community-icon {
