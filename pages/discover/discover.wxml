@@ -1,0 +1,80 @@
+
+<view class="discover-container">
+  <view class="header">
+    <text class="title">Discover Talents</text>
+    <view class="search-container">
+      <input 
+        placeholder="Search Talents..." 
+        bindinput="onSearchInput" 
+        class="search-input" 
+        value="{{searchQuery}}"
+        bindconfirm="onSearchConfirm"
+      />
+      <image src="/icons/search.png" class="search-icon" />
+      <image 
+        wx:if="{{searchQuery}}"
+        src="/icons/clear.png"
+        class="clear-icon"
+        bindtap="onClearSearch"
+      />
+    </view>
+  </view>
+
+  <view class="filter-tabs">
+    <view 
+      wx:for="{{['All', 'Featured', 'Trending', 'New', 'Nearby']}}" 
+      wx:key="*this"
+      class="tab-item {{activeTab === item.toLowerCase() ? 'active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="{{item.toLowerCase()}}"
+      aria-label="Filter by {{item}} talents"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <scroll-view 
+    scroll-y 
+    class="talent-grid"
+    bindscrolltolower="onReachBottom"
+    enable-back-to-top
+  >
+    <block wx:for="{{talents}}" wx:key="_id">
+      <view class="talent-card" bindtap="viewTalent" data-id="{{item._id}}">
+        <image src="{{item.avatar}}" mode="aspectFill" class="talent-avatar" />
+        <view class="talent-info">
+          <text class="talent-name">{{item.name}}</text>
+          <view class="talent-meta">
+            <text>{{item.genre}}</text>
+            <text>•</text>
+            <text>{{item.location}}</text>
+          </view>
+          <view class="talent-stats">
+            <view class="stat-item">
+              <image src="/icons/stat.png" class="stat-icon" />
+              <text>{{item.views}}k</text>
+            </view>
+            <view class="stat-item">
+              <image src="/icons/star.png" class="stat-icon" />
+              <text>{{item.rating}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:if="{{isLoading}}" class="loading-more">
+      <text>Loading more talents...</text>
+    </view>
+
+    <view wx:if="{{!hasMore && talents.length > 0}}" class="loading-more">
+      <text>No more talents to show</text>
+    </view>
+
+    <view wx:if="{{talents.length === 0 && !isLoading}}" class="empty-state">
+      <image src="/icons/search-empty.png" class="empty-icon" />
+      <text class="empty-text">No talents found. Try switching tabs or refreshing.</text>
+    </view>
+  </scroll-view>
+</view>
+<nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="index" />

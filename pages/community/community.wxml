@@ -1,0 +1,65 @@
+<view class="community-container">
+  <view class="community-header">
+    <text class="title">Community</text>
+    <view class="tab-container">
+      <view class="community-tab {{activeTab === 'discussions' ? 'active' : ''}}" bindtap="onTabChange" data-tab="discussions">Discussions</view>
+      <view class="community-tab {{activeTab === 'events' ? 'active' : ''}}" bindtap="onTabChange" data-tab="events">Events</view>
+      <view class="community-tab {{activeTab === 'groups' ? 'active' : ''}}" bindtap="onTabChange" data-tab="groups">Groups</view>
+    </view>
+  </view>
+
+  <view class="create-post-container">
+    <image src="{{userInfo && userInfo.avatarUrl ? userInfo.avatarUrl : '/images/talent.jpg'}}" class="user-avatar" />
+    <input placeholder="Start a discussion..." class="post-input" value="{{newPostContent}}" bindinput="onPostInput" bindconfirm="createPost" confirm-type="send" />
+  </view>
+
+  <scroll-view scroll-y class="post-list">
+    <block wx:if="{{posts.length > 0}}" wx:for="{{posts}}" wx:key="id">
+      <view class="post-card" bindtap="navigateToPostDetail" data-id="{{item.id}}">
+        <view class="post-header">
+          <image src="{{item.author.avatar || '/images/talent.jpg'}}" class="post-avatar" />
+          <view class="post-user-info">
+            <text class="post-username">{{item.author.name}}</text>
+            <text class="post-time">{{item.time}}</text>
+          </view>
+        </view>
+        <text wx:if="{{item.isEvent}}" class="event-tag">Event</text>
+        <text wx:if="{{item.isGroupPost}}" class="group-tag">Group</text>
+        <text class="post-content">{{item.content}}</text>
+        <image wx:if="{{item.image}}" src="{{item.image}}" class="post-image" />
+        <view class="post-actions">
+          <view class="post-action" bindtap="likePost" data-id="{{item.id}}">
+            <image src="{{item.liked ? '/icons/like-blue.png' : '/icons/like.png'}}" class="post-action-icon" />
+            <text>{{item.likes}}</text>
+          </view>
+          <view class="post-action" bindtap="toggleCommentInput" data-id="{{item.id}}">
+            <image src="/icons/comment.png" class="post-action-icon" />
+            <text>{{item.comments.length}}</text>
+          </view>
+          <view class="post-action">
+            <image src="/icons/share.png" class="post-action-icon" />
+          </view>
+        </view>
+        <view wx:if="{{item.showCommentInput}}" class="comment-section">
+          <view wx:for="{{item.comments}}" wx:key="id" class="comment-item">
+            <text class="comment-author">{{item.author.name}}:</text>
+            <text class="comment-text">{{item.text}}</text>
+            <text class="comment-time">{{item.time}}</text>
+          </view>
+          <view class="comment-input-container">
+            <image src="{{userInfo && userInfo.avatarUrl ? userInfo.avatarUrl : '/images/talent.jpg'}}" class="comment-avatar" />
+            <input placeholder="Add a comment..." class="comment-input" value="{{item.newCommentText}}" bindinput="onCommentInput" data-id="{{item.id}}" />
+            <view class="comment-submit-button" bindtap="submitComment" data-id="{{item.id}}">Send</view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{posts.length === 0 && !isLoading}}" class="empty-community">
+      <image src="/images/empty.png" class="empty-community-icon" />
+      <text class="empty-community-text">No posts yet. Start a discussion!</text>
+    </view>
+    <view wx:if="{{isLoading}}" class="loading-more">Loading...</view>
+    <view wx:if="{{isPosting}}" class="posting-indicator">Posting...</view>
+  </scroll-view>
+</view>
+<nav-menu role="{{userRole}}" showTalentDetail="{{false}}" currentPage="community" />
